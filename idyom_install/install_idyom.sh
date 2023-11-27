@@ -27,16 +27,16 @@ content="(load (expand-file-name \"~/quicklisp/slime-helper.el\"))
 echo "$content" > ~/.emacs
 
 
-# IDYOM_ROOT_PATH="$HOME/idyom/"
-# IDYOM_DB_PATH="$HOME/idyom/db/database.sqlite"
+IDYOM_ROOT_PATH="$HOME/idyom/"
+IDYOM_DB_PATH="$HOME/idyom/db/database.sqlite"
 echo ";;; Load CLSQL by default" >> ~/.sbclrc
 echo "(ql:quickload \"clsql\")" >> ~/.sbclrc
 echo ";;; IDyOM" >> ~/.sbclrc
 echo "(defun start-idyom ()
-   (defvar *idyom-root* \"$HOME\")
+   (defvar *idyom-root* \"$IDYOM_ROOT_PATH\")
    (defvar *idyom-message-detail-level* 1)
    (ql:quickload \"idyom\")
-   (clsql:connect '(\"$HOME\") :if-exists :old :database-type :sqlite3))" >> ~/.sbclrc
+   (clsql:connect '(\"$IDYOM_DB_PATH\") :if-exists :old :database-type :sqlite3))" >> ~/.sbclrc
 
 cd "$HOME"
 mkdir -p quicklisp/local-projects/ && curl -L https://github.com/mtpearce/idyom/archive/refs/tags/v${IDYOM_VERSION}.tar.gz > idyom.tar.gz && tar -xzf idyom.tar.gz -C quicklisp/local-projects/ && rm idyom.tar.gz
